@@ -5,16 +5,16 @@ import FlexItem from "src/components/Flex/FlexItem";
 import Navigator from "./parts/navigator";
 
 function MainPage() {
-	return (
-		<div
-			style={{
-				height: "100vh",
-				background: BaseColor.background,
-			}}
-		>
-			<Navigator />
-		</div>
-	);
+  return (
+    <div
+      style={{
+        height: "100vh",
+        background: BaseColor.background,
+      }}
+    >
+      <Navigator startDate={new Date("2019.09.01")} endDate={new Date()} />
+    </div>
+  );
 }
 
 export default MainPage;
