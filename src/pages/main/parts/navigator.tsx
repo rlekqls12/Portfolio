@@ -1,99 +1,57 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
-import BaseColor from 'src/helpers/colors';
+import React from 'react';
+// import styled from 'styled-components';
 import FlexBox from 'src/components/Flex/FlexBox';
 import FlexItem from 'src/components/Flex/FlexItem';
 import Circle from 'src/components/Circle/';
 import Block from 'src/components/Block/';
 
 type Props = {
-  startDate: Date;
-  endDate: Date;
+  datas: Array<String>;
 };
 
-/* <FlexBox direction={"column"} alignItems={"center"} justifyContent={"center"}>
-  <FlexItem>
-    <Circle size={18} background={"#7f0032"} />
-  </FlexItem>
-  <FlexItem>1</FlexItem>
-</FlexBox>; */
+// const Block1 = styled.div``;
+// const Circle1 = styled.div``;
+// :hover, transition, 기존 circle, block 컴포넌트 지우고 styled-components로 대체
 
 function Navigator(props: Props) {
-  const [dates, setDates] = useState<{ year: Number; month: Number }[]>([]);
-
-  useEffect(() => {
-    const { startDate, endDate } = props;
-
-    const endYear = endDate.getFullYear();
-    const endMonth = endDate.getMonth() + 1;
-
-    let year = startDate.getFullYear(),
-      month = startDate.getMonth() + 1,
-      monthList: typeof dates = [];
-    for (; year <= endYear; year++, month = 1) {
-      for (; year === endYear ? month <= endMonth : month <= 12; month++) {
-        monthList.push({
-          year,
-          month
-        });
-      }
-    }
-
-    setDates(monthList);
-  }, []);
-
   return (
     <div
       style={{
-        position: 'absolute',
+        position: 'relative',
         left: '50%',
-        top: '1%',
-        height: '10vh',
-        transform: 'translateX(-50%)'
+        top: '15px',
+        transform: 'translateX(-50%)',
+        width: '720px',
+        height: '16px'
       }}
     >
+      <Block
+        width={'100%'}
+        height={3}
+        background={'#afafaf'}
+        style={{
+          position: 'absolute',
+          top: '50%',
+          transform: 'translateY(-50%)'
+        }}
+      ></Block>
       <FlexBox
         direction={'row'}
         alignItems={'center'}
-        justifyContent={'space-between'}
+        justifyContent={'space-around'}
         style={{
-          width: '70vw'
+          position: 'relative'
         }}
       >
-        {dates.map((date, index) => {
-          const { startDate, endDate } = props;
-
-          const firstDate =
-            startDate.getFullYear() === date.year &&
-            startDate.getMonth() + 1 === date.month;
-          const lastDate =
-            endDate.getFullYear() === date.year &&
-            endDate.getMonth() + 1 === date.month;
-          const firstMonth = date.month === 1;
-          const month = (date.month < 10 ? '0' : '') + date.month;
-          const dateText = firstDate
-            ? `${date.year}.${month}`
-            : firstMonth
-            ? date.year
-            : month;
-
-          const width = firstDate || lastDate || firstMonth ? 6 : 4;
-          const height = firstDate || lastDate || firstMonth ? 30 : 25;
-
+        {props.datas.map((data, index) => {
           return (
             <FlexItem key={index}>
-              <FlexBox direction={'column'} alignItems={'center'}>
-                <FlexItem>
-                  <Block
-                    width={width}
-                    height={height}
-                    background={'#323232'}
-                  ></Block>
-                </FlexItem>
-                <FlexBox style={{ position: 'absolute', top: '30px' }}>
-                  {dateText}
-                </FlexBox>
-              </FlexBox>
+              <Circle
+                className={'asdasdasdasd'}
+                size={16}
+                background={'#af5656'}
+              ></Circle>
             </FlexItem>
           );
         })}

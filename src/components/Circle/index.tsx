@@ -17,19 +17,21 @@ type Props = {
    * style
    */
   style?: CSSProperties;
+  className?: string;
   children?: React.ReactNode;
 };
 
 function Circle(props: Props) {
   return (
     <div
+      className={props.className}
       style={{
         width: props.size,
         height: props.size,
         borderRadius: '100%',
         fontSize: props.textSize,
         background: props.background,
-        ...props?.style,
+        ...props?.style
       }}
     >
       {props.children}

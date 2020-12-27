@@ -17,12 +17,14 @@ type Props = {
    * style
    */
   style?: CSSProperties;
+  className?: string;
   children?: React.ReactNode;
 };
 
 function Block(props: Props) {
   return (
     <div
+      className={props.className}
       style={{
         width: props.width,
         height: props.height,

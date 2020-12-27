@@ -1,18 +1,20 @@
-import React from "react";
-import BaseColor from "src/helpers/colors";
-import FlexBox from "src/components/Flex/FlexBox";
-import FlexItem from "src/components/Flex/FlexItem";
-import Navigator from "./parts/navigator";
+import React from 'react';
+import BaseColor from 'src/helpers/colors';
+import Tiles from './parts/tiles';
+
+const testArr = Array.from({ length: 6 }, (d, i) => `${i}`);
 
 function MainPage() {
   return (
     <div
+      id={'topWrapper'}
       style={{
-        height: "100vh",
-        background: BaseColor.background,
+        minWidth: '720px',
+        height: '100vh',
+        background: BaseColor.background
       }}
     >
-      <Navigator startDate={new Date("2019.09.01")} endDate={new Date()} />
+      <Tiles data={testArr} minSize={200}></Tiles>
     </div>
   );
 }
