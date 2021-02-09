@@ -4,22 +4,27 @@ import BaseColor from 'src/helpers/colors';
 export const MainPageWrap = styled.div`
   display: flex;
   flex-direction: row;
-  height: '100vh';
-  overflow: hidden;
-  background: ${BaseColor.background};
+  overflow-x: hidden;
+  background-color: ${BaseColor.background};
 `;
 
 export const TimeLine = styled.div`
   width: 5px;
-  height: 100vh;
   margin-left: 15vw;
-  background: #33dfaf;
+  background-color: #33dfaf;
 `;
 
 export const TimeSpot = styled.div`
   position: relative;
-  left: -15px;
+  left: -12.5px;
   margin-top: 45px;
+`;
+
+export const Spot = styled.div`
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background-color: #33dfaf;
 `;
 
 export const TimeTitle = styled.div`
@@ -27,5 +32,5 @@ export const TimeTitle = styled.div`
   margin-left: 30px;
   border: 1px solid black;
   border-radius: 25px;
-  background: white;
+  background-color: white;
 `;
