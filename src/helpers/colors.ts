@@ -1,4 +1,8 @@
-const background = '#eff2ed';
+const BaseColor = {
+  background: '#eff2ed',
+  mainColor: '#33dfaf',
+  subColor: '#77dfaf',
+  emphasisColor: '#669b6b'
+}
 
-const BaseColor = { background };
-export default BaseColor; 
+export default BaseColor;

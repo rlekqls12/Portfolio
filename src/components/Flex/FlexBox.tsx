@@ -68,12 +68,14 @@ type Props = {
    * style
    */
   style?: CSSProperties;
+  className?: string;
   children?: React.ReactNode;
 };
 
 function FlexBox(props: Props) {
   return (
     <div
+      className={props.className}
       style={{
         display: props?.inlineFlex ? 'inline-flex' : 'flex',
         flexFlow: props?.flow,
@@ -82,7 +84,7 @@ function FlexBox(props: Props) {
         justifyContent: props?.justifyContent,
         alignContent: props?.alignContent,
         alignItems: props?.alignItems,
-        ...props?.style,
+        ...props?.style
       }}
     >
       {props.children}
