@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Circle from 'src/components/Circle';
 import FlexBox from 'src/components/Flex/FlexBox';
 import FlexItem from 'src/components/Flex/FlexItem';
 import {
@@ -7,54 +6,100 @@ import {
   TimeLine,
   TimeSpot,
   Spot,
-  TimeTitle
+  TimeTitle,
+  TileWrap,
+  TileText
 } from './indexStyle';
 import Tiles from './parts/tiles';
-
+import Language from './parts/language';
+// 사용해본 툴 Slack, Notion, Jira, Zeplin, Postman
 const testArr: {
   [key in string]: Array<JSX.Element>;
 } = {
   '2019. 11': [
-    <div>
-      <span>지역화폐 블록체인 지갑</span>
-    </div>
+    <TileWrap>
+      <TileText>지역화폐 블록체인 지갑</TileText>
+      <Language list={['Servlet/Jsp', 'Android', 'Kotlin', 'MySQL']} />
+    </TileWrap>
   ],
   '2020. 01': [
-    <div>
-      <span>OTT Project - Kyma</span>
-    </div>
+    <TileWrap>
+      <TileText>
+        OTT Project
+        <br />
+        Kyma
+      </TileText>
+      <Language list={['NodeJS', 'Express', 'MySQL', 'Android']} />
+    </TileWrap>
   ],
   '2020. 06': [
-    <div>
-      <span>Web Storage Project</span>
-    </div>
+    <TileWrap>
+      <TileText>Web Storage Project</TileText>
+      <Language
+        list={['NodeJS', 'Express', 'MySQL', 'ReactJS', 'TypeScript']}
+      />
+    </TileWrap>
   ],
   '2020. 09': [
-    <div>
-      <span>근태관리시스템 - Jatco</span>
-    </div>,
-    <div>
-      <span>쇼핑몰 - BHL</span>
-    </div>
+    <TileWrap>
+      <TileText>
+        근태관리시스템
+        <br />
+        Jatco
+      </TileText>
+      <Language list={['Spring', 'MsSQL', 'Window Forms']} />
+    </TileWrap>,
+    <TileWrap>
+      <TileText>
+        쇼핑몰
+        <br />
+        BHL
+      </TileText>
+      <Language list={['Spring', 'PostgreSQL']} />
+    </TileWrap>
   ],
   '2020. 10': [
-    <div>
-      <span>물류관리시스템 - FBW</span>
-    </div>,
-    <div>
-      <span>셀러지원쇼핑몰 - Sellway</span>
-    </div>
+    <TileWrap>
+      <TileText>
+        물류관리시스템
+        <br />
+        FBW
+      </TileText>
+      <Language
+        list={[
+          'NodeJS',
+          'NestJS',
+          'TypeORM',
+          'AWS RDS',
+          'ReactJS',
+          'TypeScript'
+        ]}
+      />
+    </TileWrap>,
+    <TileWrap>
+      <TileText>
+        셀러지원쇼핑몰
+        <br />
+        Sellway
+      </TileText>
+      <Language list={['Spring', 'Thymeleaf', 'AWS RDS']} />
+    </TileWrap>
   ],
   '2021. 01': [
-    <div>
-      <span>물류관리시스템 - FBW Remake</span>
-    </div>
+    <TileWrap>
+      <TileText>
+        물류관리시스템
+        <br />
+        FBW Remake
+      </TileText>
+      <Language list={['Spring', 'JQuery', 'AWS RDS']} />
+    </TileWrap>
   ]
 };
 
 function MainPage() {
   const [dateList] = useState<Array<string>>(Object.keys(testArr).sort());
-  console.log(testArr, dateList);
+
   return (
     <MainPageWrap>
       <TimeLine></TimeLine>
@@ -80,7 +125,8 @@ function MainPage() {
                 blockSize={250}
                 style={{
                   marginLeft: '55px',
-                  marginBottom: '100px'
+                  marginBottom: '100px',
+                  boxSizing: 'border-box'
                 }}
               ></Tiles>
             </TimeSpot>

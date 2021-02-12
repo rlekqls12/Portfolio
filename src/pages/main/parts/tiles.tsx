@@ -1,6 +1,7 @@
 import React from 'react';
 import FlexBox from 'src/components/Flex/FlexBox';
 import FlexItem from 'src/components/Flex/FlexItem';
+import BaseColor from 'src/helpers/colors';
 
 type Props = {
   /**
@@ -25,6 +26,13 @@ type Props = {
   style?: React.CSSProperties;
 };
 
+const borderCollapse = (index: number) =>
+  index >= 1
+    ? {
+        borderLeft: `1px solid ${BaseColor.emphasisColor}`
+      }
+    : {};
+
 function Tiles(props: Props) {
   const { data, maxWidth, blockSize, blockStyle, style } = props;
 
@@ -46,10 +54,11 @@ function Tiles(props: Props) {
             style={{
               width: blockSize,
               height: blockSize,
-              background: '#a3dfe6',
-              border: '1px solid #63a2fa',
+              background: BaseColor.subColor,
+              border: `2px solid ${BaseColor.emphasisColor}`,
               boxSizing: 'border-box',
-              ...blockStyle
+              ...blockStyle,
+              ...borderCollapse(index)
             }}
           >
             {data}

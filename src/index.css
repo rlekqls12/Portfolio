@@ -1,4 +1,19 @@
+@font-face {
+  font-family: 'TmoneyRoundWindExtraBold';
+  src: url('./style/fonts/TmoneyRoundWindExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'TmoneyRoundWindRegular';
+  src: url('./style/fonts/TmoneyRoundWindRegular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Recipekorea 레코체 FONT';
+  src: url('./style/fonts/Recipekorea 레코체 FONT.ttf') format('truetype');
+}
+
 body {
-    margin: 0px;
-    height: 100vh;
+  margin: 0px;
+  height: 100vh;
 }
