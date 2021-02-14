@@ -22,7 +22,7 @@ export const LanguageIcon = styled.div`
   padding: 5px 5px;
   margin: 8px;
   overflow: hidden;
-  border: 1px solid rgb(230, 235, 230);
+  border: 1px solid ${BaseColor.languageIconBackground};
   border-radius: 100%;
   box-sizing: border-box;
   text-align:center;

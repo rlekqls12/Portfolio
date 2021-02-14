@@ -8,6 +8,7 @@ import {
   Spot,
   TimeTitle
 } from './indexStyle';
+import Detail from './parts/detail';
 import { historyArr } from './parts/developHistory';
 import Tiles from './parts/tiles';
 
@@ -17,6 +18,7 @@ function MainPage() {
   const [dateList] = useState<Array<string>>(() =>
     Object.keys(historyArr).sort().reverse()
   );
+  const [detail, setDetail] = useState<number | undefined>(undefined);
 
   return (
     <MainPageWrap>
@@ -46,11 +48,20 @@ function MainPage() {
                   marginBottom: '100px',
                   boxSizing: 'border-box'
                 }}
+                onClick={(e, i) => {
+                  setDetail(i);
+                }}
               ></Tiles>
             </TimeSpot>
           </FlexItem>
         ))}
       </FlexBox>
+      <Detail
+        open={detail}
+        close={() => {
+          setDetail(undefined);
+        }}
+      />
     </MainPageWrap>
   );
 }

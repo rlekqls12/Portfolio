@@ -17,7 +17,7 @@ export const TimeLine = styled.div`
 export const TimeSpot = styled.div`
   position: relative;
   left: -12.5px;
-  margin-top: 45px;
+  margin-top: 35px;
 `;
 
 export const Spot = styled.div`

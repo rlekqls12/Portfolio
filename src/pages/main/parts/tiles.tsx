@@ -23,14 +23,14 @@ type Props = {
    * 스타일
    */
   style?: React.CSSProperties;
+  /**
+   * 클릭 이벤트
+   */
+  onClick?: (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    index?: number
+  ) => void;
 };
-
-const borderCollapse = (index: number) =>
-  index >= 1
-    ? {
-        marginLeft: '20px'
-      }
-    : {};
 
 function Tiles(props: Props) {
   const { data, maxWidth, blockSize, blockStyle, style } = props;
@@ -51,9 +51,9 @@ function Tiles(props: Props) {
           <FlexItemCustum
             key={index}
             blockSize={blockSize}
-            style={{
-              ...blockStyle,
-              ...borderCollapse(index)
+            style={{ marginRight: '20px', marginBottom: '20px', ...blockStyle }}
+            onClick={e => {
+              if (props.onClick) props.onClick(e, index);
             }}
           >
             {data.tile}
