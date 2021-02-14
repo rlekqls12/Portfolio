@@ -1,8 +1,8 @@
 const BaseColor = {
-  background: '#eff2ed',
-  mainColor: '#33dfaf',
-  subColor: '#77dfaf',
-  emphasisColor: '#669b6b'
+  background: 'rgb(250, 255, 250)',
+  mainColor: 'rgb(200, 225, 225)',
+  tileColor: 'rgba(200, 225, 225, 0.25)',
+  tileHoverColor: 'rgba(200, 225, 225, 0.55)',
 }
 
 export default BaseColor;

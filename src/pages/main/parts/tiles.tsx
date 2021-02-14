@@ -1,13 +1,12 @@
 import React from 'react';
 import FlexBox from 'src/components/Flex/FlexBox';
-import FlexItem from 'src/components/Flex/FlexItem';
-import BaseColor from 'src/helpers/colors';
+import { FlexItemCustum } from './tilesStyle';
 
 type Props = {
   /**
    * 보여줄 타일 이미지
    */
-  data: Array<JSX.Element>;
+  data: Array<{ tile: JSX.Element }>;
   /**
    * 타일 줄 개수
    */
@@ -15,7 +14,7 @@ type Props = {
   /**
    * 타일 최소 크기
    */
-  blockSize?: number | string;
+  blockSize: number | string;
   /**
    * 타일 스타일
    */
@@ -29,7 +28,7 @@ type Props = {
 const borderCollapse = (index: number) =>
   index >= 1
     ? {
-        borderLeft: `1px solid ${BaseColor.emphasisColor}`
+        marginLeft: '20px'
       }
     : {};
 
@@ -49,20 +48,16 @@ function Tiles(props: Props) {
     >
       {data.map((data, index) => {
         return (
-          <FlexItem
+          <FlexItemCustum
             key={index}
+            blockSize={blockSize}
             style={{
-              width: blockSize,
-              height: blockSize,
-              background: BaseColor.subColor,
-              border: `2px solid ${BaseColor.emphasisColor}`,
-              boxSizing: 'border-box',
               ...blockStyle,
               ...borderCollapse(index)
             }}
           >
-            {data}
-          </FlexItem>
+            {data.tile}
+          </FlexItemCustum>
         );
       })}
     </FlexBox>

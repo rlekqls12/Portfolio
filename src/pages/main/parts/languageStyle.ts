@@ -11,18 +11,18 @@ export const LanguageWrap = styled.div`
 export const LanguageInner = styled.div`
   display: flex;
   flex-grow: 0;
-  width: 100%;
+  width: 80%;
   flex-wrap: wrap;
   justify-content: space-evenly;
 `;
 
 export const LanguageIcon = styled.div`
-  width: 42px;
-  height: 42px;
+  width: 36px;
+  height: 36px;
   padding: 5px 5px;
-  margin: 5px;
+  margin: 8px;
   overflow: hidden;
-  border: 1px solid black;
+  border: 1px solid rgb(230, 235, 230);
   border-radius: 100%;
   box-sizing: border-box;
   text-align:center;
@@ -30,7 +30,7 @@ export const LanguageIcon = styled.div`
 `;
 
 export const LanguageImg = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
 `;
