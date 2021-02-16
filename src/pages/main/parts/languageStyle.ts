@@ -20,7 +20,7 @@ export const LanguageIcon = styled.div`
   width: 36px;
   height: 36px;
   padding: 5px 5px;
-  margin: 8px;
+  margin: 4px;
   overflow: hidden;
   border: 1px solid ${BaseColor.languageIconBackground};
   border-radius: 100%;

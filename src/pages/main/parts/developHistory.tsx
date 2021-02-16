@@ -82,7 +82,8 @@ export const historyArr: {
               'TypeORM',
               'AWS RDS',
               'ReactJS',
-              'TypeScript'
+              'TypeScript',
+              'Lodash'
             ]}
           />
         </TileWrap>
