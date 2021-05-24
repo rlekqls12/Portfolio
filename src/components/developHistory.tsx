@@ -1,5 +1,5 @@
 import { TileWrap, TileText } from './developHistoryStyle';
-import Language from '../parts/language';
+import Language from './language';
 
 export const historyArr: {
   [key in string]: Array<{ tile: JSX.Element }>;

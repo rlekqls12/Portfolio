@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import BaseColor from 'src/helpers/colors';
 
 export const LanguageWrap = styled.div`
   flex: 1;
@@ -22,11 +21,11 @@ export const LanguageIcon = styled.div`
   padding: 5px 5px;
   margin: 4px;
   overflow: hidden;
-  border: 1px solid ${BaseColor.languageIconBackground};
+  border: 1px solid black;
   border-radius: 100%;
   box-sizing: border-box;
-  text-align:center;
-  background-color: ${BaseColor.background};
+  text-align: center;
+  background-color: gray;
 `;
 
 export const LanguageImg = styled.img`
