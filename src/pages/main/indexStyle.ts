@@ -55,13 +55,13 @@ export const IntroHead = styled.span`
       max-height: 6vh;
       margin-bottom: 2vh;
       opacity: 1;
-      content: 'Front-End Developer';
+      content: 'Full Stack Developer';
       font-size: 5vh;
     }
     100% {
       max-height: 0px;
       opacity: 0;
-      content: 'Front-End Developer';
+      content: 'Full Stack Developer';
     }
   }
 
