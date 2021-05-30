@@ -95,3 +95,33 @@ export const Content = styled.div`
   height: 100%;
   overflow-x: auto;
 `;
+
+/* CardList */
+export const CardList = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+`;
+
+/* Card */
+export const Card = styled.div`
+  &:hover {
+    transform: scale(1.25);
+    transition: transform 0.6s ease;
+  }
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
+  height: 400px;
+  margin: 0 10px;
+  font-size: 24px;
+  border: 2px solid white;
+  background-color: rgba(100, 100, 100, 0.5);
+    transition: transform 0.6s ease;
+`;
