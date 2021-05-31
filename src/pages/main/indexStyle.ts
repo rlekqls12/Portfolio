@@ -18,11 +18,13 @@ export const Intro = styled.div`
       z-index: 101;
       height: 100vh;
       color: rgba(255, 255, 255, 1);
+      background-color: rgba(0, 0, 0, 1);
     }
     100% {
       position: fixed;
       z-index: 101;
       color: rgba(255, 255, 255, 0.7);
+      background-color: rgba(0, 0, 0, 0.8);
     }
   }
 
@@ -96,51 +98,82 @@ export const Content = styled.div`
   overflow-x: auto;
 `;
 
+/* Content Background */
+export const ContentBackground = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+`;
+
 /* CardList */
 export const CardList = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  width: 75vw;
+  height: 75vh;
   box-sizing: border-box;
 `;
 
 /* CardBoard */
 export const CardBoard = styled.div<{
-  focus: boolean;
+  i: number;
+  focus: number;
+  background: string;
 }>`
-  @keyframes focus-card {
-    0% {
-      position: absolute;
+
+  @keyframes hide-board {
+    0%,
+    99% {
+      border: 2px solid white;
+    }
+    100% {
+      border: 0;
     }
   }
+
+  ${({ i, focus }) => {
+    if (focus === i) {
+      return `
+        flex: 1;
+        border: 2px solid white;
+      `;
+    } else if (focus === -1) {
+      return `
+        flex: 1;
+        border: 2px solid white;
+      `;
+    } else {
+      return `
+        animation: hide-board 0.4s;
+        flex: 0;
+      `;
+    }
+  }}
 
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: ${({ focus }) => (focus ? '80vw' : '250px')};
-  height: ${({ focus }) => (focus ? '80vh' : '400px')};
-  margin: 0 10px;
-  font-size: 24px;
-  border: 2px solid white;
-  background-color: rgb(100, 100, 100);
-  transition: all 0.4s ease;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: ${({ background }) => background};
+  transition: all 0.4s ease-in-out;
+`;
 
-  ${({ focus }) =>
-    focus
-      ? `
-        animation: focus-card 2.5s;
-        position: absolute;
-        z-index: 11;
-      `
-      : `
-        &:hover {
-          transform: scale(1.25);
-          transition: transform 0.6s ease;
-          z-index: 10;
-        }
-      `}
+/* CardCover */
+export const CardCover = styled.div<{
+  show: boolean;
+}>`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, ${({ show }) => show ? 0 : 0.25});
+  transition: all 0.4s ease-in-out;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0);
+  }
 `;

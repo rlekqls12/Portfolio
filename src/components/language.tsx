@@ -16,32 +16,32 @@ function Language(props: Props) {
   useEffect(
     function () {
       const tempList = props.list.map(language => {
-        let src = `/images/${language.toLocaleLowerCase()}.svg`;
+        let src = `/icon/images/${language.toLocaleLowerCase()}.svg`;
 
         switch (language.toLocaleLowerCase()) {
           case 'servlet/jsp':
           case 'spring':
-            src = '/images/java.svg';
+            src = '/icon/images/java.svg';
             break;
           case 'react':
           case 'reactnative':
           case 'react native':
           case 'reactjs':
-            src = '/images/react.svg';
+            src = '/icon/images/react.svg';
             break;
           case 'window':
           case 'window forms':
-            src = '/images/window.svg';
+            src = '/icon/images/window.svg';
             break;
           case 'aws':
           case 'aws rds':
-            src = '/images/aws.svg';
+            src = '/icon/images/aws.svg';
             break;
           case 'typeorm':
-            src = '/images/typeorm.png';
+            src = '/icon/images/typeorm.png';
             break;
           case 'thymeleaf':
-            src = '/images/thymeleaf.png';
+            src = '/icon/images/thymeleaf.png';
             break;
         }
 
