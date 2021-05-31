@@ -107,21 +107,40 @@ export const CardList = styled.div`
   box-sizing: border-box;
 `;
 
-/* Card */
-export const Card = styled.div`
-  &:hover {
-    transform: scale(1.25);
-    transition: transform 0.6s ease;
+/* CardBoard */
+export const CardBoard = styled.div<{
+  focus: boolean;
+}>`
+  @keyframes focus-card {
+    0% {
+      position: absolute;
+    }
   }
 
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 250px;
-  height: 400px;
+  width: ${({ focus }) => (focus ? '80vw' : '250px')};
+  height: ${({ focus }) => (focus ? '80vh' : '400px')};
   margin: 0 10px;
   font-size: 24px;
   border: 2px solid white;
-  background-color: rgba(100, 100, 100, 0.5);
-    transition: transform 0.6s ease;
+  background-color: rgb(100, 100, 100);
+  transition: all 0.4s ease;
+
+  ${({ focus }) =>
+    focus
+      ? `
+        animation: focus-card 2.5s;
+        position: absolute;
+        z-index: 11;
+      `
+      : `
+        &:hover {
+          transform: scale(1.25);
+          transition: transform 0.6s ease;
+          z-index: 10;
+        }
+      `}
 `;

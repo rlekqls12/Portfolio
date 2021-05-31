@@ -1,20 +1,34 @@
-import { useMemo, useState } from 'react';
-import { Wrap, Intro, IntroHead, Content, CardList, Card } from './indexStyle';
+import { useCallback, useMemo, useState } from 'react';
+import {
+  Wrap,
+  Intro,
+  IntroHead,
+  Content,
+  CardList,
+  CardBoard
+} from './indexStyle';
 
 // 사용해본 툴 Slack, Notion, Jira, Zeplin, Postman
 
-type Tab = {
+type Card = {
   name: string;
 };
 
-const tabInfo: Tab[] = [{ name: 'Front-end' }, { name: 'Back-end' }];
+const cardInfo: Card[] = [{ name: 'Front-end' }, { name: 'Back-end' }];
 
 function MainPage() {
   const [tabIndex, setTabIndex] = useState<number>(-1);
 
+  const setFocus = useCallback(i => setTabIndex(i), []);
+
   const cardList = useMemo(
-    () => tabInfo.map(tab => <Card>{tab.name}</Card>),
-    []
+    () =>
+      cardInfo.map((tab, i) => (
+        <CardBoard key={i} focus={i === tabIndex} onClick={() => setFocus(i)}>
+          {tab.name}
+        </CardBoard>
+      )),
+    [setFocus, tabIndex]
   );
 
   return (
@@ -24,7 +38,9 @@ function MainPage() {
         <IntroHead />
         <div />
       </Intro>
-      <Content>{tabIndex === -1 && <CardList>{cardList}</CardList>}</Content>
+      <Content>
+        <CardList>{cardList}</CardList>
+      </Content>
     </Wrap>
   );
 }
