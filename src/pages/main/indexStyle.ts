@@ -39,7 +39,7 @@ export const Intro = styled.div`
   color: rgba(255, 255, 255, 0.7);
   font-size: 3vh;
   text-align: center;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.8);
 `;
 
 /* IntroHead */
@@ -103,6 +103,8 @@ export const ContentBackground = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
+  top: 0;
+  left: 0;
 `;
 
 /* CardList */
@@ -112,8 +114,9 @@ export const CardList = styled.div`
   align-items: center;
   justify-content: center;
   width: 75vw;
-  height: 75vh;
+  height: 40vw;
   box-sizing: border-box;
+  background-color: red;
 `;
 
 /* CardBoard */
@@ -122,7 +125,6 @@ export const CardBoard = styled.div<{
   focus: number;
   background: string;
 }>`
-
   @keyframes hide-board {
     0%,
     99% {
@@ -133,24 +135,16 @@ export const CardBoard = styled.div<{
     }
   }
 
-  ${({ i, focus }) => {
-    if (focus === i) {
-      return `
-        flex: 1;
-        border: 2px solid white;
-      `;
-    } else if (focus === -1) {
-      return `
-        flex: 1;
-        border: 2px solid white;
-      `;
-    } else {
-      return `
-        animation: hide-board 0.4s;
-        flex: 0;
-      `;
-    }
-  }}
+  ${({ i, focus }) =>
+    focus === i || focus === -1
+      ? `
+          flex: 1;
+          border: 2px solid white;
+        `
+      : `
+          animation: hide-board 0.4s;
+          flex: 0;
+        `}
 
   position: relative;
   display: flex;
@@ -170,7 +164,7 @@ export const CardCover = styled.div<{
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, ${({ show }) => show ? 0 : 0.25});
+  background-color: rgba(0, 0, 0, ${({ show }) => (show ? 0 : 0.25)});
   transition: all 0.4s ease-in-out;
 
   &:hover {
