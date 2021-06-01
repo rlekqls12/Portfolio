@@ -14,20 +14,21 @@ import {
 
 type Card = {
   name: string;
-  image: string;
   background: string;
 };
 
 const cardInfo: Card[] = [
   {
     name: 'Front-end',
-    image: './images/front.png',
     background: 'rgb(254, 204, 100)'
   },
   {
     name: 'Back-end',
-    image: './images/back.png',
     background: 'rgb(119, 216, 173)'
+  },
+  {
+    name: 'Dummy',
+    background: 'rgb(119, 173, 216)'
   }
 ];
 
@@ -44,7 +45,8 @@ function MainPage() {
           background={tab.background}
           onClick={() => setImmediate(() => setTabIdx(i))}
         >
-          <img src={tab.image} alt={tab.name} />
+          {/* <img src={tab.image} alt={tab.name} /> */}
+          {tab.name}
           <CardCover show={i === tabIdx} />
         </CardBoard>
       )),

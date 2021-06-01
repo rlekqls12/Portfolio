@@ -116,7 +116,6 @@ export const CardList = styled.div`
   width: 75vw;
   height: 40vw;
   box-sizing: border-box;
-  background-color: red;
 `;
 
 /* CardBoard */
@@ -135,16 +134,39 @@ export const CardBoard = styled.div<{
     }
   }
 
-  ${({ i, focus }) =>
-    focus === i || focus === -1
-      ? `
+  @keyframes expand-board {
+    0% {
+      /* position: absolute;
+      width: 100%;
+      height: 100%; */
+    }
+    100% {
+      /* position: absolute;
+      width: 100vw;
+      height: 100vh; */
+    }
+  }
+
+  ${({ i, focus }) => {
+    switch (focus) {
+      case i: return `
+          // position: absolute;
+          // animation: expand-board 3s ease 0.4s;
+          // width: 100vw;
+          // height: 100vh;
           flex: 1;
           border: 2px solid white;
-        `
-      : `
+        `;
+      case -1: return `
+          flex: 1;
+          border: 2px solid white;
+      `
+      default: return `
           animation: hide-board 0.4s;
           flex: 0;
-        `}
+      `;
+    }
+  }}
 
   position: relative;
   display: flex;
@@ -153,6 +175,9 @@ export const CardBoard = styled.div<{
   height: 100%;
   box-sizing: border-box;
   overflow: hidden;
+  font-family: 'TmoneyRoundWindExtraBold';
+  font-size: 2.4vw;
+  white-space: nowrap;
   background-color: ${({ background }) => background};
   transition: all 0.4s ease-in-out;
 `;
