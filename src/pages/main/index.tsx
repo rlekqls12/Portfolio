@@ -45,8 +45,7 @@ function MainPage() {
           background={tab.background}
           onClick={() => setImmediate(() => setTabIdx(i))}
         >
-          {/* <img src={tab.image} alt={tab.name} /> */}
-          {tab.name}
+          <p>{tab.name}</p>
           <CardCover show={i === tabIdx} />
         </CardBoard>
       )),

@@ -134,26 +134,23 @@ export const CardBoard = styled.div<{
     }
   }
 
-  @keyframes expand-board {
-    0% {
-      /* position: absolute;
-      width: 100%;
-      height: 100%; */
-    }
-    100% {
-      /* position: absolute;
-      width: 100vw;
-      height: 100vh; */
-    }
-  }
+  position: relative;
+  top: 0vw;
+  display: flex;
+  align-items: ${({ i, focus }) => i === focus ? 'flex-start' : 'center'};
+  justify-content: ${({ i, focus }) => i === focus ? 'flex-start' : 'center'};
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: ${({ background }) => background};
+  transition: all 0.4s ease-in-out;
 
   ${({ i, focus }) => {
     switch (focus) {
       case i: return `
-          // position: absolute;
-          // animation: expand-board 3s ease 0.4s;
-          // width: 100vw;
-          // height: 100vh;
+          top: -2vw;
+          width: 100%;
+          height: 150%;
           flex: 1;
           border: 2px solid white;
         `;
@@ -168,18 +165,63 @@ export const CardBoard = styled.div<{
     }
   }}
 
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  box-sizing: border-box;
-  overflow: hidden;
-  font-family: 'TmoneyRoundWindExtraBold';
-  font-size: 2.4vw;
-  white-space: nowrap;
-  background-color: ${({ background }) => background};
-  transition: all 0.4s ease-in-out;
+  & > p {
+    @keyframes blink-text {
+      0% {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-top: 0;
+        transform: translate(-50%, -50%);
+        opacity: 1;
+      }
+      48% {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-top: 0;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+      }
+      49% {
+        position: absolute;
+        left: 0;
+        top: 0;
+        margin-top: 0;
+        color: transparent;
+        transform: translate(0%, 0%);
+        opacity: 0;
+      }
+      50% {
+        margin-top: 0;
+        opacity: 0;
+      }
+      100% {
+        margin-top: 1vw;
+        opacity: 1;
+      }
+    }
+
+    font-family: 'TmoneyRoundWindExtraBold';
+    font-size: 2.4vw;
+    white-space: nowrap;
+    color: white;
+
+    ${({ i, focus }) => i === focus
+      ? `
+        animation: blink-text 0.8s;
+        width: 100%;
+        margin-top: 1vw;
+        text-align: center;
+      `
+      : `
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      `
+    };
+  }
 `;
 
 /* CardCover */
@@ -190,9 +232,12 @@ export const CardCover = styled.div<{
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, ${({ show }) => (show ? 0 : 0.25)});
+  backdrop-filter: blur(${({ show }) => (show ? 0 : 1)})px;
+  pointer-events: ${({ show }) => (show ? 'none' : 'unset')};
   transition: all 0.4s ease-in-out;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0);
   }
 `;
