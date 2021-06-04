@@ -1,68 +1,69 @@
-import { useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Wrap,
-  Intro,
-  IntroHead,
-  Content,
-  ContentBackground,
-  CardList,
-  CardBoard,
-  CardCover
+  FullPager,
+  Title,
+  TitleMainText,
+  TitleSubText,
+  ProjectHistory
 } from './indexStyle';
 
 // 사용해본 툴 Slack, Notion, Jira, Zeplin, Postman
+// TODO: 페이지 안에서 스크롤이 다 끝나기 전에 페이지가 넘어감
+// MEMO: Event에서 ScrollY 확인하기
 
-type Card = {
-  name: string;
-  background: string;
+type WheelEvent = {
+  direction: number;
+  effectTime: number;
 };
 
-const cardInfo: Card[] = [
-  {
-    name: 'Front-end',
-    background: 'rgb(254, 204, 100)'
-  },
-  {
-    name: 'Back-end',
-    background: 'rgb(119, 216, 173)'
-  },
-  {
-    name: 'Dummy',
-    background: 'rgb(119, 173, 216)'
-  }
-];
-
 function MainPage() {
-  const [tabIdx, setTabIdx] = useState<number>(-1);
+  const [wheelEvent, setWheelEvent] = useState<WheelEvent>({
+    direction: 0,
+    effectTime: 0
+  });
+  const [fullPage, setFullPage] = useState<number>(0);
 
-  const cardList = useMemo(
-    () =>
-      cardInfo.map((tab, i) => (
-        <CardBoard
-          key={i}
-          i={i}
-          focus={tabIdx}
-          background={tab.background}
-          onClick={() => setImmediate(() => setTabIdx(i))}
-        >
-          <p>{tab.name}</p>
-          <CardCover show={i === tabIdx} />
-        </CardBoard>
-      )),
-    [tabIdx]
+  const onWheel = useCallback(
+    (event: React.WheelEvent<HTMLDivElement>) => {
+      console.log(event);
+      const { deltaY } = event;
+      const time = new Date().getTime();
+      if (Math.abs(deltaY) > 100 && time - wheelEvent.effectTime > 1000) {
+        setWheelEvent({
+          direction: wheelEvent.direction > 0 ? 1 : -1,
+          effectTime: time
+        });
+      }
+    },
+    [wheelEvent]
   );
+
+  useEffect(() => {
+    setFullPage(prevPage => Math.max(prevPage + wheelEvent.direction, 0));
+  }, [wheelEvent]);
 
   return (
     <Wrap>
-      <Intro>
-        <div />
-        <IntroHead />
-        <div />
-      </Intro>
-      <Content>
-        <ContentBackground onClick={() => setTabIdx(-1)} />
-        <CardList>{cardList}</CardList>
-      </Content>
+      <FullPager page={fullPage} onWheel={onWheel}>
+        <Title>
+          <TitleSubText>Full Stack</TitleSubText>
+          <TitleSubText>Web Developer</TitleSubText>
+          <TitleMainText>
+            KI
+            <br />
+            DABIN
+          </TitleMainText>
+        </Title>
+        <ProjectHistory>
+          {Array.from({ length: 180 }, (_, i) => (
+            <React.Fragment key={i}>
+              Line {i}
+              <br />
+            </React.Fragment>
+          ))}
+        </ProjectHistory>
+      </FullPager>
     </Wrap>
   );
 }
