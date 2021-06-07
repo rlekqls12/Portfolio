@@ -7,5 +7,6 @@ export const FullPage = styled.div<{
   position: relative;
   top: ${({ page }) => -100 * page}vh;
   width: 100vw;
-  ${({ transition }) => transition ? `transition: top ${transition}ms ease-in-out;` : ''}
+  ${({ transition }) =>
+    transition ? `transition: top ${transition}ms ease;` : ''}
 `;
