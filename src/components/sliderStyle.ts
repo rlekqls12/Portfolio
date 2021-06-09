@@ -2,9 +2,16 @@ import styled from 'styled-components';
 
 export const SliderWrap = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: inherit;
   height: inherit;
+  overflow: hidden;
 `;
+
+export const SliderControlWrap = styled.div``;
 
 function calcIndex(prop: SliderCardType) {
   const { index, halfIndex, maxIndex } = prop;
@@ -62,6 +69,7 @@ export const SliderCard = styled.div<SliderCardType>`
   left: calc(${prop => calcX(prop)});
   top: 50%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: ${prop => calcSize(prop)}vw;
@@ -71,17 +79,19 @@ export const SliderCard = styled.div<SliderCardType>`
   backdrop-filter: blur(${prop => calcBlur(prop) * 10}px);
   box-sizing: border-box;
   border: 1px solid black;
+  border-radius: 100%;
   white-space: nowrap;
   font-size: 3vw;
   color: white;
-  background-color: gray;
+  box-shadow: 0 17px 20px -18px rgba(0, 0, 0, 1);
+  background-color: rgb(200, 200, 200);
   z-index: ${prop => calcZIndex(prop)};
   transform: translateX(-50%) translateY(-50%);
   transition: all 0.4s;
 
   img {
-    width: 100%;
-    height: 100%;
+    width: 50%;
+    height: 50%;
     filter: blur(${prop => calcBlur(prop)}px);
   }
 `;

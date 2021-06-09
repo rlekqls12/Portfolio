@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Wrap, ProjectHistory } from './indexStyle';
 import Title from './title';
 import FullPager from 'src/components/fullPager';
@@ -9,25 +9,20 @@ import Slider from 'src/components/slider';
 
 // TODO: fullPage에 Ref 연결 시켜서 PageIndicator max에 값 넘겨주기
 
-const dummyCardInfoArray = Array.from({ length: 5 }, (_, i) => ({
+const dummyCardInfoArray = Array.from({ length: 3 }, (_, i) => ({
   text: 'Card ' + i
 }));
 
 function MainPage() {
   const [pageNumber, setPageNumber] = useState<number>(0);
-  const fullPageRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    console.log(fullPageRef);
-  }, []);
 
   return (
     <Wrap>
       <PageIndicator max={2} />
-      <FullPager nowPage={pageNumber} ref={fullPageRef}>
+      <FullPager nowPage={pageNumber}>
         <Title />
         <ProjectHistory>
-          <Slider cardInfoList={dummyCardInfoArray} />
+          <Slider cardInfoList={dummyCardInfoArray} showCardCount={3} />
         </ProjectHistory>
       </FullPager>
     </Wrap>

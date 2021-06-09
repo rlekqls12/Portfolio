@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react';
 import { FullPage } from './fullPagerStyle';
 
 type Props = {
@@ -6,7 +12,6 @@ type Props = {
   setting: Setting;
   onChange: (page: number) => any;
   children: React.ReactNode;
-  ref?: React.RefObject<HTMLDivElement>;
 };
 
 type WheelEvent = {
@@ -23,15 +28,17 @@ type Setting = {
   swipePower: number;
   swipeInTime: number;
   keyboard: boolean;
+  keyboardDelay: number;
   transition: number;
 };
 
 function FullPager(props: Props) {
-  const { nowPage, setting, onChange, children, ref } = useMemo(
+  const { nowPage, setting, onChange, children } = useMemo(
     () => props,
     [props]
   );
 
+  const fullpageRef = useRef<HTMLDivElement>(null);
   // 휠 방향, 마지막 휠 이벤트 감지 시간
   const [wheelEvent, setWheelEvent] = useState<WheelEvent>({
     effectTime: 0
@@ -42,6 +49,8 @@ function FullPager(props: Props) {
   const [dragEvent, setDragEvent] = useState<number>(0);
   // 현재 페이지
   const [pageNumber, setPageNumber] = useState<number>(0);
+  // 키보드 이벤트 딜레이
+  const [keyboardDelay, setKeyboardDelay] = useState<number>(0);
   // 자식 컴포넌트 개수에 따른 최대 페이지 수
   const maxPage = useMemo(
     () => (Array.isArray(children) ? children.length : 0),
@@ -56,8 +65,20 @@ function FullPager(props: Props) {
         onChange(tempPage);
         return tempPage;
       });
+
+      // MEMO: 임시 코드
+      if (
+        fullpageRef?.current &&
+        Array.isArray(children) &&
+        children.length > pageNumber
+      ) {
+        const target: any =
+          fullpageRef.current.children[pageNumber + direction];
+        target.focus();
+      }
+      return false;
     },
-    [onChange]
+    [children, onChange, pageNumber]
   );
 
   // 휠 이벤트
@@ -81,6 +102,7 @@ function FullPager(props: Props) {
         });
         pageMove(direction);
       }
+      return false;
     },
     [
       setting.wheel,
@@ -116,6 +138,7 @@ function FullPager(props: Props) {
           }
           break;
       }
+      return false;
     },
     [
       setting.swipe,
@@ -150,6 +173,7 @@ function FullPager(props: Props) {
           }
           break;
       }
+      return false;
     },
     [setting.drag, setting.dragPower, dragEvent, maxPage, pageMove, pageNumber]
   );
@@ -159,6 +183,10 @@ function FullPager(props: Props) {
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (!setting.keyboard) return false;
 
+      const time = new Date().getTime();
+
+      if (time - keyboardDelay < setting.keyboardDelay) return;
+
       let direction = 0;
       if (event.key === 'ArrowUp') direction = -1;
       if (event.key === 'ArrowDown') direction = 1;
@@ -167,9 +195,18 @@ function FullPager(props: Props) {
       if (direction === -1 && pageNumber + direction < 0) return;
       if (direction === 1 && maxPage <= pageNumber + direction) return;
 
+      setKeyboardDelay(time);
       pageMove(direction);
+      return false;
     },
-    [setting.keyboard, maxPage, pageMove, pageNumber]
+    [
+      setting.keyboard,
+      setting.keyboardDelay,
+      keyboardDelay,
+      maxPage,
+      pageMove,
+      pageNumber
+    ]
   );
 
   // 외부에서 페이지 변경 시 반영
@@ -181,7 +218,7 @@ function FullPager(props: Props) {
 
   return (
     <FullPage
-      ref={ref}
+      ref={fullpageRef}
       tabIndex={0}
       page={pageNumber}
       transition={setting.transition}
@@ -208,6 +245,7 @@ FullPager.defaultProps = {
     swipe: true,
     swipePower: 100,
     keyboard: true,
+    keyboardDelay: 200,
     transition: 400
   },
   onChange: (page: number) => undefined,

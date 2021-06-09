@@ -16,6 +16,7 @@
 body {
   margin: 0px;
   height: 100vh;
+  overflow: hidden;
 }
 
 * {
@@ -23,9 +24,14 @@ body {
   padding: 0;
   line-height: 1;
   -webkit-touch-callout: none;
+  -webkit-user-drag: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+div:focus {
+  outline: 0;
 }
