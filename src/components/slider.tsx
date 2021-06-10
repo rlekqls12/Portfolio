@@ -1,5 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { SliderWrap, SliderCard } from './sliderStyle';
+import {
+  SliderWrap,
+  SliderControlWrap,
+  SliderControlButton,
+  SliderCard
+} from './sliderStyle';
 
 type Card = {
   text: string;
@@ -139,6 +144,14 @@ function Slider(props: Props) {
         {realCardIndex}
       </span>
       {slideCardList}
+      <SliderControlWrap>
+        <SliderControlButton onClick={() => setCardIndex(prev => prev - 1)}>
+          L
+        </SliderControlButton>
+        <SliderControlButton onClick={() => setCardIndex(prev => prev + 1)}>
+          R
+        </SliderControlButton>
+      </SliderControlWrap>
     </SliderWrap>
   );
 }

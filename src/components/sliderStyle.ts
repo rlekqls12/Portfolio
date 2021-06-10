@@ -11,7 +11,31 @@ export const SliderWrap = styled.div`
   overflow: hidden;
 `;
 
-export const SliderControlWrap = styled.div``;
+export const SliderControlWrap = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  transform: translateX(-50%) translateY(-50%);
+`;
+
+export const SliderControlButton = styled.button`
+  width: 4.2vw;
+  height: 4.2vw;
+  margin: 3vw;
+  font-size: 1.5vw;
+  border: 1px solid rgba(200, 215, 235, 0.7);
+  border-radius: 100%;
+  background-color: rgba(245, 245, 245, 0.5);
+  transition: all 0.4s ease-in-out;
+
+  &:hover {
+    border: 1px solid rgba(225, 235, 255, 1);
+    background-color: rgba(255, 255, 255, 1);
+  }
+`;
 
 function calcIndex(prop: SliderCardType) {
   const { index, halfIndex, maxIndex } = prop;
