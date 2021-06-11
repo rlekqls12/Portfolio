@@ -47,39 +47,41 @@ function Slider(props: Props) {
 
     if (cardInfoList.length > 0) {
       const length = cardInfoList.length;
-      const halfShowCount = showCardCount / 2;
-      const halfIndex = Math.floor(halfShowCount + 1);
-      const maxIndex = showCardCount + 2;
-      const leftAdjust = Math.floor(halfShowCount) + 1;
+      const maxIndex = showCardCount + 2; // 5
+      const halfIndex = Math.floor(maxIndex / 2); // 2
+      const effectIndex = realCardIndex <= 0 ? halfIndex : -halfIndex;
 
-      for (let i = -leftAdjust; i <= leftAdjust; i++) {
-        let v = cardInfoList[0];
+      for (let i = -halfIndex; i <= halfIndex; i++) {
+        const cardRawIndex = i - realCardIndex;
+        let cardIndex = ((cardRawIndex + effectIndex) % maxIndex) - effectIndex;
 
-        let tempTestValue = i;
-        let tempIndex = 0;
+        let v;
+        let dataIndex = 0;
         if (length > 0) {
-          tempIndex = tempTestValue % showCardCount;
-          if (tempIndex < 0) tempIndex += showCardCount;
+          dataIndex = i;
 
-          v = cardInfoList[tempIndex];
+          // TODO: dataIndex 값 설정하기, cardIndex 처럼 양수 음수 구분해서 처리해야 할 것 같음
+
+          v = cardInfoList[dataIndex] ?? { text: undefined };
+        } else {
+          v = cardInfoList[0];
         }
-        // MEMO: 여기서 계산하고 CSS로 넘겨줬어야 했는데, 넘기고 나서 계산해서 이 밑에 VIEW에서 계산해버리면 안 맞아버림
-        // TODO: tempIndex를 여기서 realCardIndex 계산해서 넘기기
 
         tempList.push(
           <SliderCard
             key={i}
-            index={i - realCardIndex}
-            halfIndex={halfIndex}
-            maxIndex={maxIndex}
+            index={cardIndex}
+            endIndex={halfIndex}
             dist={10}
             distAlpha={0.2}
           >
-            <img src={'./images/icon/' + imageList[tempIndex]} alt={'icon'} />
+            {/* <img src={'./images/icon/' + imageList[dataIndex]} alt={'icon'} /> */}
+            <p>{i + halfIndex}</p>
+            <p>{dataIndex}</p>
             <p>
-              ({i}+{leftAdjust}){tempTestValue}%{showCardCount}={tempIndex}
+              {i} + {cardIndex} = {i + cardIndex}
             </p>
-            <p>{v.text}</p>
+            {/* <p>{v.text}</p> */}
           </SliderCard>
         );
       }
@@ -140,16 +142,18 @@ function Slider(props: Props) {
       onMouseDown={onDrag}
       onMouseUp={onDrag}
     >
-      <span style={{ position: 'absolute', top: 250, fontSize: '48px' }}>
-        {realCardIndex}
+      <span style={{ position: 'absolute', top: 200, fontSize: '48px' }}>
+        CardIndex: {realCardIndex}
+        <br />
+        ShowCardCount: {showCardCount}
       </span>
       {slideCardList}
       <SliderControlWrap>
         <SliderControlButton onClick={() => setCardIndex(prev => prev - 1)}>
-          L
+          &lt;&lt;
         </SliderControlButton>
         <SliderControlButton onClick={() => setCardIndex(prev => prev + 1)}>
-          R
+          &gt;&gt;
         </SliderControlButton>
       </SliderControlWrap>
     </SliderWrap>

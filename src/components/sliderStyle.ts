@@ -19,6 +19,7 @@ export const SliderControlWrap = styled.div`
   justify-content: space-between;
   width: 100%;
   transform: translateX(-50%) translateY(-50%);
+  z-index: 100;
 `;
 
 export const SliderControlButton = styled.button`
@@ -37,53 +38,37 @@ export const SliderControlButton = styled.button`
   }
 `;
 
-function calcIndex(prop: SliderCardType) {
-  const { index, halfIndex, maxIndex } = prop;
-  let changedIndex = index;
-  if (index < -halfIndex) {
-    changedIndex = index % maxIndex;
-    if (changedIndex < -halfIndex) changedIndex += maxIndex;
-  } else if (index > halfIndex) {
-    changedIndex = index % maxIndex;
-    if (changedIndex > halfIndex) changedIndex -= maxIndex;
-  }
-  return changedIndex;
-}
-
 function calcX(prop: SliderCardType, adder?: number) {
-  let index = calcIndex(prop);
+  const { index, dist } = prop;
   const addIndex = adder ?? 0;
   return `calc( ${50 + 15 * (index + addIndex)}% + ${
-    (prop.dist / 4) * (index + addIndex)
+    (dist / 4) * (index + addIndex)
   }vw)`;
 }
 
 function calcSize(prop: SliderCardType, adder?: number) {
-  let index = calcIndex(prop);
-  return 40 - prop.dist * Math.abs(index + (adder ?? 0));
+  const { index, dist } = prop;
+  return 20 - 5 * Math.abs(index + (adder ?? 0));
+  // return 40 - dist * Math.abs(index + (adder ?? 0));
 }
 
 function calcOpacity(prop: SliderCardType) {
-  const index = calcIndex(prop);
-  return Math.abs(index) === prop.halfIndex
-    ? 0
-    : 1 - prop.distAlpha * Math.abs(index);
+  const { index, endIndex, distAlpha } = prop;
+  return 1 - distAlpha * Math.abs(index);
+  // return Math.abs(index) === endIndex ? 0 : 1 - distAlpha * Math.abs(index);
 }
 
 function calcBlur(prop: SliderCardType) {
-  const index = calcIndex(prop);
-  return 2 * Math.abs(index);
+  return 2 * Math.abs(prop.index);
 }
 
 function calcZIndex(prop: SliderCardType) {
-  const index = calcIndex(prop);
-  return 100 - Math.abs(index);
+  return 100 - Math.abs(prop.index);
 }
 
 type SliderCardType = {
   index: number;
-  halfIndex: number;
-  maxIndex: number;
+  endIndex: number;
   dist: number;
   distAlpha: number;
 };
@@ -105,7 +90,8 @@ export const SliderCard = styled.div<SliderCardType>`
   border: 1px solid black;
   border-radius: 100%;
   white-space: nowrap;
-  font-size: 3vw;
+  font-size: 1.7vw;
+  /* font-size: 3vw; */
   color: white;
   box-shadow: 0 17px 20px -18px rgba(0, 0, 0, 1);
   background-color: rgb(200, 200, 200);
