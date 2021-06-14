@@ -22,7 +22,7 @@ function MainPage() {
       <FullPager nowPage={pageNumber}>
         <Title />
         <ProjectHistory>
-          <Slider cardInfoList={dummyCardInfoArray} showCardCount={3} />
+          <Slider cardInfoList={dummyCardInfoArray} showCardCount={5} />
         </ProjectHistory>
       </FullPager>
     </Wrap>

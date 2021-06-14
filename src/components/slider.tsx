@@ -47,8 +47,8 @@ function Slider(props: Props) {
 
     if (cardInfoList.length > 0) {
       const length = cardInfoList.length;
-      const maxIndex = showCardCount + 2; // 5
-      const halfIndex = Math.floor(maxIndex / 2); // 2
+      const maxIndex = showCardCount + 2;
+      const halfIndex = Math.floor(maxIndex / 2);
       const effectIndex = realCardIndex <= 0 ? halfIndex : -halfIndex;
 
       for (let i = -halfIndex; i <= halfIndex; i++) {
@@ -60,7 +60,24 @@ function Slider(props: Props) {
         if (length > 0) {
           dataIndex = i;
 
-          // TODO: dataIndex 값 설정하기, cardIndex 처럼 양수 음수 구분해서 처리해야 할 것 같음
+          // 카드 회전에 따른 인덱스 값 부여할 조건 확인
+          const cardAbsoluteIndex = i + halfIndex;
+          const targetCardIndex = realCardIndex % maxIndex;
+          const condition =
+            realCardIndex >= 0
+              ? targetCardIndex > cardAbsoluteIndex
+              : maxIndex + targetCardIndex <= cardAbsoluteIndex;
+
+          // 카드 회전에 따른 인덱스 값 부여
+          const pageIndex = Math.abs(realCardIndex / maxIndex);
+          const effectMaxIndex = realCardIndex < 0 ? -maxIndex : maxIndex;
+          dataIndex +=
+            (condition ? Math.ceil(pageIndex) : Math.floor(pageIndex)) *
+            effectMaxIndex;
+
+          // 데이터 배열 범위에 맞게 커팅
+          dataIndex %= length;
+          if (dataIndex < 0) dataIndex += length;
 
           v = cardInfoList[dataIndex] ?? { text: undefined };
         } else {
@@ -75,13 +92,8 @@ function Slider(props: Props) {
             dist={10}
             distAlpha={0.2}
           >
-            {/* <img src={'./images/icon/' + imageList[dataIndex]} alt={'icon'} /> */}
-            <p>{i + halfIndex}</p>
-            <p>{dataIndex}</p>
-            <p>
-              {i} + {cardIndex} = {i + cardIndex}
-            </p>
-            {/* <p>{v.text}</p> */}
+            <img src={'./images/icon/' + imageList[dataIndex]} alt={'icon'} />
+            <p>{v.text}</p>
           </SliderCard>
         );
       }
@@ -142,11 +154,6 @@ function Slider(props: Props) {
       onMouseDown={onDrag}
       onMouseUp={onDrag}
     >
-      <span style={{ position: 'absolute', top: 200, fontSize: '48px' }}>
-        CardIndex: {realCardIndex}
-        <br />
-        ShowCardCount: {showCardCount}
-      </span>
       {slideCardList}
       <SliderControlWrap>
         <SliderControlButton onClick={() => setCardIndex(prev => prev - 1)}>

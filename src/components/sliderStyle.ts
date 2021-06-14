@@ -41,21 +41,19 @@ export const SliderControlButton = styled.button`
 function calcX(prop: SliderCardType, adder?: number) {
   const { index, dist } = prop;
   const addIndex = adder ?? 0;
-  return `calc( ${50 + 15 * (index + addIndex)}% + ${
+  return `calc( ${50 + 10 * (index + addIndex)}% + ${
     (dist / 4) * (index + addIndex)
   }vw)`;
 }
 
 function calcSize(prop: SliderCardType, adder?: number) {
   const { index, dist } = prop;
-  return 20 - 5 * Math.abs(index + (adder ?? 0));
-  // return 40 - dist * Math.abs(index + (adder ?? 0));
+  return 40 - dist * Math.abs(index + (adder ?? 0));
 }
 
 function calcOpacity(prop: SliderCardType) {
   const { index, endIndex, distAlpha } = prop;
-  return 1 - distAlpha * Math.abs(index);
-  // return Math.abs(index) === endIndex ? 0 : 1 - distAlpha * Math.abs(index);
+  return Math.abs(index) === endIndex ? 0 : 1 - distAlpha * Math.abs(index);
 }
 
 function calcBlur(prop: SliderCardType) {
@@ -90,8 +88,7 @@ export const SliderCard = styled.div<SliderCardType>`
   border: 1px solid black;
   border-radius: 100%;
   white-space: nowrap;
-  font-size: 1.7vw;
-  /* font-size: 3vw; */
+  font-size: 3vw;
   color: white;
   box-shadow: 0 17px 20px -18px rgba(0, 0, 0, 1);
   background-color: rgb(200, 200, 200);
