@@ -11,6 +11,7 @@ type Props = {
   nowPage: number;
   setting: Setting;
   onChange: (page: number) => any;
+  onChildrenCount: (count: number) => any;
   children: React.ReactNode;
 };
 
@@ -33,7 +34,7 @@ type Setting = {
 };
 
 function FullPager(props: Props) {
-  const { nowPage, setting, onChange, children } = useMemo(
+  const { nowPage, setting, onChange, onChildrenCount, children } = useMemo(
     () => props,
     [props]
   );
@@ -216,6 +217,11 @@ function FullPager(props: Props) {
     setPageNumber(nowPage);
   }, [maxPage, nowPage]);
 
+  // 내부 페이지 개수 변화 시 외부 콜백 함수 실행
+  useEffect(() => {
+    onChildrenCount(Array.isArray(children) ? children.length : 0);
+  }, [children, onChildrenCount]);
+
   return (
     <FullPage
       ref={fullpageRef}
@@ -249,6 +255,7 @@ FullPager.defaultProps = {
     transition: 400
   },
   onChange: (page: number) => undefined,
+  onChildrenCount: (count: number) => undefined,
   children: <React.Fragment />
 };
 

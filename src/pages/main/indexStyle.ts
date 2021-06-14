@@ -15,5 +15,5 @@ export const ProjectHistory = styled.div`
   width: 100vw;
   height: 100vh;
   overflow-y: auto;
-  background-color: azure;
+  background-color: white;
 `;

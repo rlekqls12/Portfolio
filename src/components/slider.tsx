@@ -12,7 +12,7 @@ type Props = {
   cardInfoList: any[];
   foucsIndex: number;
   showCardCount: number;
-  render: (value: any, index: number) => JSX.Element;
+  render: (value: any, index: number, cardIndex: number) => JSX.Element;
   cardStyle?: {
     distX?: Dist;
     distSize?: Dist;
@@ -110,7 +110,7 @@ function Slider(props: Props) {
               i
             )}
           >
-            {render(v, dataIndex)}
+            {render(v, dataIndex, cardIndex)}
           </SliderCard>
         );
       }

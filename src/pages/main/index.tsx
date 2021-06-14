@@ -7,8 +7,6 @@ import Slider from 'src/components/slider';
 
 // 사용해본 툴 Slack, Notion, Jira, Zeplin, Postman
 
-// TODO: fullPage에 Ref 연결 시켜서 PageIndicator max에 값 넘겨주기
-
 const imageList = [
   'android.svg',
   'aws.svg',
@@ -25,21 +23,36 @@ const dummyCardInfoArray = Array.from({ length: 8 }, (_, i) => ({
 }));
 
 function MainPage() {
+  const [childCount, setChildCount] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState<number>(0);
 
-  const sliderRenderFunc = useCallback((v, i) => {
+  const sliderRenderFunc = useCallback((value, index, cardIndex) => {
     return (
       <>
-        <img src={'./images/icon/' + imageList[i]} alt={'icon'} />
-        <p>{v.text}</p>
+        <img src={'./images/icon/' + imageList[index]} alt={'icon'} />
+        <p
+          style={{
+            position: 'absolute',
+            top: `${4 - Math.abs(cardIndex)}vh`
+          }}
+        >
+          {value.text}
+        </p>
       </>
     );
   }, []);
 
+  const onPageIndicatorChange = useCallback((index: number) => {
+    setPageNumber(index);
+  }, []);
+
   return (
     <Wrap>
-      <PageIndicator max={2} />
-      <FullPager nowPage={pageNumber}>
+      <FullPager
+        nowPage={pageNumber}
+        onChange={page => setPageNumber(page)}
+        onChildrenCount={count => setChildCount(count)}
+      >
         <Title />
         <ProjectHistory>
           <Slider
@@ -49,6 +62,11 @@ function MainPage() {
           />
         </ProjectHistory>
       </FullPager>
+      <PageIndicator
+        focus={pageNumber}
+        max={childCount}
+        onFocusChnage={onPageIndicatorChange}
+      />
     </Wrap>
   );
 }

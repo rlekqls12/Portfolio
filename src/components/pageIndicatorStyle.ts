@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { PageIndicatorStyle } from './pageIndicator';
 
-function convertArrowCSS(
+function convertArrowToCSS(
   arrowText: string,
   arrow: number | string | 'center' | undefined
 ) {
@@ -33,10 +33,14 @@ export const PageIndicate = styled.div<{
 }>`
   position: fixed;
   ${({ style }) =>
-    convertArrowCSS('top', style.top) +
-    convertArrowCSS('left', style.left) +
-    convertArrowCSS('right', style.right) +
-    convertArrowCSS('bottom', style.bottom) +
+    convertArrowToCSS('top', style.top) +
+    convertArrowToCSS('left', style.left) +
+    convertArrowToCSS('right', style.right) +
+    convertArrowToCSS('bottom', style.bottom) +
     transform(style)}
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   z-index: 1;
 `;
