@@ -6,32 +6,33 @@ import {
   SliderCard
 } from './sliderStyle';
 
-type Card = {
-  text: string;
-};
+type Dist = number | ((value: any, index: number, cardIndex: number) => number);
 
 type Props = {
-  cardInfoList: Card[];
+  cardInfoList: any[];
   foucsIndex: number;
   showCardCount: number;
+  render: (value: any, index: number) => JSX.Element;
+  cardStyle?: {
+    distX?: Dist;
+    distSize?: Dist;
+    distAlpha?: Dist;
+  };
 };
 
-const imageList = [
-  'android.svg',
-  'aws.svg',
-  'express.svg',
-  'java.svg',
-  'jquery.svg',
-  'kotlin.svg',
-  'lodash.svg',
-  'mssql.svg'
-];
+const initDist: {
+  distX: Dist;
+  distSize: Dist;
+  distAlpha: Dist;
+} = {
+  distX: 10,
+  distSize: 15,
+  distAlpha: 0.3
+};
 
 function Slider(props: Props) {
-  const { cardInfoList, foucsIndex, showCardCount } = useMemo(
-    () => props,
-    [props]
-  );
+  const { cardInfoList, foucsIndex, showCardCount, render, cardStyle } =
+    useMemo(() => props, [props]);
   const [realCardIndex, setCardIndex] = useState<number>(foucsIndex ?? 0);
   // 스와이프 이벤트 시작 좌표
   const [swipeEvent, setSwipeEvent] = useState<number>(0);
@@ -50,6 +51,17 @@ function Slider(props: Props) {
       const maxIndex = showCardCount + 2;
       const halfIndex = Math.floor(maxIndex / 2);
       const effectIndex = realCardIndex <= 0 ? halfIndex : -halfIndex;
+      const { distX, distSize, distAlpha } = cardStyle ?? initDist;
+
+      const convertDist = (
+        dist: Dist,
+        value: any,
+        index: number,
+        cardIndex: number
+      ) => {
+        if (typeof dist === 'function') return dist(value, index, cardIndex);
+        else return dist;
+      };
 
       for (let i = -halfIndex; i <= halfIndex; i++) {
         const cardRawIndex = i - realCardIndex;
@@ -89,18 +101,23 @@ function Slider(props: Props) {
             key={i}
             index={cardIndex}
             endIndex={halfIndex}
-            dist={10}
-            distAlpha={0.2}
+            dist={convertDist(distX ?? initDist.distX, v, dataIndex, i)}
+            distX={convertDist(distSize ?? initDist.distSize, v, dataIndex, i)}
+            distAlpha={convertDist(
+              distAlpha ?? initDist.distAlpha,
+              v,
+              dataIndex,
+              i
+            )}
           >
-            <img src={'./images/icon/' + imageList[dataIndex]} alt={'icon'} />
-            <p>{v.text}</p>
+            {render(v, dataIndex)}
           </SliderCard>
         );
       }
     }
 
     return tempList;
-  }, [cardInfoList, realCardIndex, showCardCount]);
+  }, [cardInfoList, showCardCount, realCardIndex, render, cardStyle]);
 
   const onSwipe = useCallback(
     (event: React.TouchEvent<HTMLDivElement>) => {

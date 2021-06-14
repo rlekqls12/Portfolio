@@ -38,17 +38,14 @@ export const SliderControlButton = styled.button`
   }
 `;
 
-function calcX(prop: SliderCardType, adder?: number) {
-  const { index, dist } = prop;
-  const addIndex = adder ?? 0;
-  return `calc( ${50 + 10 * (index + addIndex)}% + ${
-    (dist / 4) * (index + addIndex)
-  }vw)`;
+function calcX(prop: SliderCardType) {
+  const { index, dist, distX } = prop;
+  return `calc( ${50 + distX * index}% + ${(dist / 4) * index}vw)`;
 }
 
-function calcSize(prop: SliderCardType, adder?: number) {
+function calcSize(prop: SliderCardType) {
   const { index, dist } = prop;
-  return 40 - dist * Math.abs(index + (adder ?? 0));
+  return 40 - dist * Math.abs(index);
 }
 
 function calcOpacity(prop: SliderCardType) {
@@ -68,6 +65,7 @@ type SliderCardType = {
   index: number;
   endIndex: number;
   dist: number;
+  distX: number;
   distAlpha: number;
 };
 

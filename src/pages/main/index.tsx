@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Wrap, ProjectHistory } from './indexStyle';
 import Title from './title';
 import FullPager from 'src/components/fullPager';
@@ -9,12 +9,32 @@ import Slider from 'src/components/slider';
 
 // TODO: fullPage에 Ref 연결 시켜서 PageIndicator max에 값 넘겨주기
 
-const dummyCardInfoArray = Array.from({ length: 3 }, (_, i) => ({
+const imageList = [
+  'android.svg',
+  'aws.svg',
+  'express.svg',
+  'java.svg',
+  'jquery.svg',
+  'kotlin.svg',
+  'lodash.svg',
+  'mssql.svg'
+];
+
+const dummyCardInfoArray = Array.from({ length: 8 }, (_, i) => ({
   text: 'Card ' + i
 }));
 
 function MainPage() {
   const [pageNumber, setPageNumber] = useState<number>(0);
+
+  const sliderRenderFunc = useCallback((v, i) => {
+    return (
+      <>
+        <img src={'./images/icon/' + imageList[i]} alt={'icon'} />
+        <p>{v.text}</p>
+      </>
+    );
+  }, []);
 
   return (
     <Wrap>
@@ -22,7 +42,11 @@ function MainPage() {
       <FullPager nowPage={pageNumber}>
         <Title />
         <ProjectHistory>
-          <Slider cardInfoList={dummyCardInfoArray} showCardCount={5} />
+          <Slider
+            cardInfoList={dummyCardInfoArray}
+            showCardCount={5}
+            render={sliderRenderFunc}
+          />
         </ProjectHistory>
       </FullPager>
     </Wrap>
