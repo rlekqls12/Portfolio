@@ -51,6 +51,9 @@ function Slider(props: Props) {
       const maxIndex = showCardCount + 2;
       const halfIndex = Math.floor(maxIndex / 2);
       const effectIndex = realCardIndex <= 0 ? halfIndex : -halfIndex;
+      const targetCardIndex = realCardIndex % maxIndex;
+      const pageIndex = Math.abs(realCardIndex / maxIndex);
+      const effectMaxIndex = realCardIndex < 0 ? -maxIndex : maxIndex;
       const { distX, distSize, distAlpha } = cardStyle ?? initDist;
 
       const convertDist = (
@@ -74,15 +77,12 @@ function Slider(props: Props) {
 
           // 카드 회전에 따른 인덱스 값 부여할 조건 확인
           const cardAbsoluteIndex = i + halfIndex;
-          const targetCardIndex = realCardIndex % maxIndex;
           const condition =
             realCardIndex >= 0
               ? targetCardIndex > cardAbsoluteIndex
               : maxIndex + targetCardIndex <= cardAbsoluteIndex;
 
           // 카드 회전에 따른 인덱스 값 부여
-          const pageIndex = Math.abs(realCardIndex / maxIndex);
-          const effectMaxIndex = realCardIndex < 0 ? -maxIndex : maxIndex;
           dataIndex +=
             (condition ? Math.ceil(pageIndex) : Math.floor(pageIndex)) *
             effectMaxIndex;
