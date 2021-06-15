@@ -5,7 +5,8 @@ import {
   SliderControlButton,
   SliderIndicatorWrap,
   SliderIndicatorDot,
-  SliderCard
+  SliderCard,
+  SliderCardBlur
 } from './sliderStyle';
 
 type Dist = number | ((value: any, index: number, cardIndex: number) => number);
@@ -27,7 +28,7 @@ const initDist: {
   distSize: Dist;
   distAlpha: Dist;
 } = {
-  distX: 10,
+  distX: 8,
   distSize: 15,
   distAlpha: 0.3
 };
@@ -113,6 +114,7 @@ function Slider(props: Props) {
             )}
           >
             {render(v, dataIndex, cardIndex)}
+            <SliderCardBlur index={cardIndex} endIndex={halfIndex - 1} />
           </SliderCard>
         );
       }

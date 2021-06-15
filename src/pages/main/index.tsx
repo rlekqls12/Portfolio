@@ -1,37 +1,27 @@
-import React, { useCallback, useState } from 'react';
-import { Wrap, ProjectHistory } from './indexStyle';
+import React, { useCallback, useMemo, useState } from 'react';
+import { Wrap, ProjectHistory, ProjectCard } from './indexStyle';
 import Title from './title';
 import FullPager from 'src/components/fullPager';
 import PageIndicator from 'src/components/pageIndicator';
 import Slider from 'src/components/slider';
+import { historyArr } from 'src/components/developHistory';
 
 // 사용해본 툴 Slack, Notion, Jira, Zeplin, Postman
-
-const imageList = [
-  'android.svg',
-  'aws.svg',
-  'express.svg',
-  'java.svg',
-  'jquery.svg',
-  'kotlin.svg',
-  'lodash.svg',
-  'mssql.svg'
-];
-
-const dummyCardInfoArray = Array.from({ length: 8 }, (_, i) => ({
-  text: 'Card ' + i
-}));
 
 function MainPage() {
   const [childCount, setChildCount] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState<number>(0);
+  const projectArr = useMemo(() => [...historyArr], []);
 
   const sliderRenderFunc = useCallback((value, index, cardIndex) => {
     return (
-      <>
-        <img src={'./images/icon/' + imageList[index]} alt={'icon'} />
-        <p>{value.text}</p>
-      </>
+      <ProjectCard cardIndex={cardIndex}>
+        <p className="main">
+          {value[0]}.{value[1].toString().padStart(2, '0')}
+        </p>
+        <p className="sub">{value[2]}</p>
+        <p className="langs">{value[3].map((v: any) => v + ' ')}</p>
+      </ProjectCard>
     );
   }, []);
 
@@ -49,7 +39,7 @@ function MainPage() {
         <Title />
         <ProjectHistory>
           <Slider
-            cardInfoList={dummyCardInfoArray}
+            cardInfoList={projectArr}
             showCardCount={5}
             render={sliderRenderFunc}
           />

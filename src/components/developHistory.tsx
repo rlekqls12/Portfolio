@@ -1,119 +1,33 @@
-import { TileWrap, TileText } from './developHistoryStyle';
-import Language from './language';
-
-export const historyArr: {
-  [key in string]: Array<{ tile: JSX.Element }>;
-} = {
-  '2019. 11': [
-    {
-      tile: (
-        <TileWrap>
-          <TileText>지역화폐 블록체인 지갑</TileText>
-          <Language list={['Servlet/Jsp', 'Android', 'Kotlin', 'MySQL']} />
-        </TileWrap>
-      )
-    }
+export const historyArr = [
+  [
+    2019,
+    11,
+    '지역화폐 블록체인 지갑',
+    ['Servlet/Jsp', 'Android', 'Kotlin', 'MySQL']
   ],
-  '2020. 01': [
-    {
-      tile: (
-        <TileWrap>
-          <TileText>
-            OTT Project
-            <br />
-            Kyma
-          </TileText>
-          <Language list={['NodeJS', 'Express', 'MySQL', 'Android']} />
-        </TileWrap>
-      )
-    }
+  [2020, 1, 'OTT Project Kyma', ['NodeJS', 'Express', 'MySQL', 'Android']],
+  [
+    2020,
+    6,
+    'Web Storage Project',
+    ['NodeJS', 'Express', 'MySQL', 'ReactJS', 'TypeScript']
   ],
-  '2020. 06': [
-    {
-      tile: (
-        <TileWrap>
-          <TileText>Web Storage Project</TileText>
-          <Language
-            list={['NodeJS', 'Express', 'MySQL', 'ReactJS', 'TypeScript']}
-          />
-        </TileWrap>
-      )
-    }
+  [2020, 9, '근태관리시스템 Jatco', ['Spring', 'MsSQL', 'Window Forms']],
+  [2020, 9, '쇼핑몰 BHL', ['Spring', 'PostgreSQL']],
+  [
+    2020,
+    10,
+    '물류관리시스템 FBW',
+    [
+      'NodeJS',
+      'NestJS',
+      'TypeORM',
+      'AWS RDS',
+      'ReactJS',
+      'TypeScript',
+      'Lodash'
+    ]
   ],
-  '2020. 09': [
-    {
-      tile: (
-        <TileWrap>
-          <TileText>
-            근태관리시스템
-            <br />
-            Jatco
-          </TileText>
-          <Language list={['Spring', 'MsSQL', 'Window Forms']} />
-        </TileWrap>
-      )
-    },
-    {
-      tile: (
-        <TileWrap>
-          <TileText>
-            쇼핑몰
-            <br />
-            BHL
-          </TileText>
-          <Language list={['Spring', 'PostgreSQL']} />
-        </TileWrap>
-      )
-    }
-  ],
-  '2020. 10': [
-    {
-      tile: (
-        <TileWrap>
-          <TileText>
-            물류관리시스템
-            <br />
-            FBW
-          </TileText>
-          <Language
-            list={[
-              'NodeJS',
-              'NestJS',
-              'TypeORM',
-              'AWS RDS',
-              'ReactJS',
-              'TypeScript',
-              'Lodash'
-            ]}
-          />
-        </TileWrap>
-      )
-    },
-    {
-      tile: (
-        <TileWrap>
-          <TileText>
-            셀러지원쇼핑몰
-            <br />
-            Sellway
-          </TileText>
-          <Language list={['Spring', 'Thymeleaf', 'AWS RDS']} />
-        </TileWrap>
-      )
-    }
-  ],
-  '2021. 01': [
-    {
-      tile: (
-        <TileWrap>
-          <TileText>
-            물류관리시스템
-            <br />
-            FBW Remake
-          </TileText>
-          <Language list={['Spring', 'JQuery', 'AWS RDS']} />
-        </TileWrap>
-      )
-    }
-  ]
-};
+  [2020, 10, '셀러지원쇼핑몰 Sellway', ['Spring', 'Thymeleaf', 'AWS RDS']],
+  [2021, 1, '물류관리시스템 FBW Remake', ['Spring', 'JQuery', 'AWS RDS']]
+];

@@ -77,7 +77,7 @@ function calcOpacity(prop: SliderCardType) {
 }
 
 function calcBlur(prop: SliderCardType) {
-  return 2 * Math.abs(prop.index);
+  return 1 * Math.abs(prop.index);
 }
 
 function calcZIndex(prop: SliderCardType) {
@@ -103,23 +103,27 @@ export const SliderCard = styled.div<SliderCardType>`
   width: ${prop => calcSize(prop)}vw;
   height: ${prop => calcSize(prop)}vw;
   overflow: hidden;
+  filter: blur(${prop => calcBlur(prop)}px);
   opacity: ${prop => calcOpacity(prop)};
-  backdrop-filter: blur(${prop => calcBlur(prop) * 10}px);
   box-sizing: border-box;
-  border: 1px solid black;
-  border-radius: 100%;
-  white-space: nowrap;
-  font-size: 3vw;
-  color: white;
-  box-shadow: 0 17px 20px -18px rgba(0, 0, 0, 1);
-  background-color: rgb(200, 200, 200);
   z-index: ${prop => calcZIndex(prop)};
   transform: translateX(-50%) translateY(-50%);
   transition: all 0.4s;
+  color: red;
 
   img {
     width: 50%;
     height: 50%;
-    filter: blur(${prop => calcBlur(prop)}px);
   }
+`;
+
+export const SliderCardBlur = styled.div<{ index: number; endIndex: number }>`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  backdrop-filter: grayscale(
+    ${({ index, endIndex }) => 100 * (Math.abs(index) / endIndex)}%
+  );
+  transition: all 0.4s;
 `;
