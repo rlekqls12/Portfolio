@@ -28,9 +28,9 @@ const initDist: {
   distSize: Dist;
   distAlpha: Dist;
 } = {
-  distX: 8,
-  distSize: 15,
-  distAlpha: 0.3
+  distX: 15,
+  distSize: 20,
+  distAlpha: 0.35
 };
 
 function Slider(props: Props) {

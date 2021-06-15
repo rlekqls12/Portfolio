@@ -19,6 +19,16 @@ type WheelEvent = {
   effectTime: number;
 };
 
+type EventMatrix = {
+  x: number;
+  y: number;
+};
+
+const initMatrix: EventMatrix = {
+  x: 0,
+  y: 0
+};
+
 type Setting = {
   wheel: boolean;
   wheelPower: number;
@@ -45,9 +55,9 @@ function FullPager(props: Props) {
     effectTime: 0
   });
   // 스와이프 이벤트 시작 좌표
-  const [swipeEvent, setSwipeEvent] = useState<number>(0);
+  const [swipeEvent, setSwipeEvent] = useState<EventMatrix>({ ...initMatrix });
   // 드래그 이벤트 시작 좌표
-  const [dragEvent, setDragEvent] = useState<number>(0);
+  const [dragEvent, setDragEvent] = useState<EventMatrix>({ ...initMatrix });
   // 현재 페이지
   const [pageNumber, setPageNumber] = useState<number>(0);
   // 키보드 이벤트 딜레이
@@ -121,20 +131,30 @@ function FullPager(props: Props) {
     (event: React.TouchEvent<HTMLDivElement>) => {
       if (!setting.swipe) return false;
 
-      const swipeY = event.changedTouches[0].pageY;
+      const { pageX, pageY } = event.changedTouches[0];
       switch (event.type) {
         case 'touchstart':
-          setSwipeEvent(swipeY);
+          setSwipeEvent({
+            x: pageX,
+            y: pageY
+          });
           break;
         case 'touchend':
-          const distY = swipeEvent - swipeY;
-          if (Math.abs(distY) > setting.swipePower) {
+          const distX = swipeEvent.x - pageX;
+          const distY = swipeEvent.y - pageY;
+          if (
+            Math.abs(distX) < setting.swipePower &&
+            Math.abs(distY) > setting.swipePower
+          ) {
             const direction = distY > 0 ? 1 : -1;
 
             if (direction === -1 && pageNumber + direction < 0) return;
             if (direction === 1 && maxPage <= pageNumber + direction) return;
 
-            setSwipeEvent(swipeY);
+            setSwipeEvent({
+              x: pageX,
+              y: pageY
+            });
             pageMove(direction);
           }
           break;
@@ -156,20 +176,30 @@ function FullPager(props: Props) {
     (event: React.MouseEvent<HTMLDivElement>) => {
       if (!setting.drag) return false;
 
-      const dragY = event.pageY;
+      const { pageX, pageY } = event;
       switch (event.type) {
         case 'mousedown':
-          setDragEvent(dragY);
+          setDragEvent({
+            x: pageX,
+            y: pageY
+          });
           break;
         case 'mouseup':
-          const distY = dragEvent - dragY;
-          if (Math.abs(distY) > setting.dragPower) {
+          const distX = dragEvent.x - pageX;
+          const distY = dragEvent.y - pageY;
+          if (
+            Math.abs(distX) < setting.dragPower &&
+            Math.abs(distY) > setting.dragPower
+          ) {
             const direction = distY > 0 ? 1 : -1;
 
             if (direction === -1 && pageNumber + direction < 0) return;
             if (direction === 1 && maxPage <= pageNumber + direction) return;
 
-            setDragEvent(dragY);
+            setDragEvent({
+              x: pageX,
+              y: pageY
+            });
             pageMove(direction);
           }
           break;

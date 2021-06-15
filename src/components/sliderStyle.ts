@@ -68,7 +68,7 @@ function calcX(prop: SliderCardType) {
 
 function calcSize(prop: SliderCardType) {
   const { index, dist } = prop;
-  return 40 - dist * Math.abs(index);
+  return 60 - dist * Math.abs(index);
 }
 
 function calcOpacity(prop: SliderCardType) {
@@ -95,7 +95,7 @@ type SliderCardType = {
 export const SliderCard = styled.div<SliderCardType>`
   position: absolute;
   left: calc(${prop => calcX(prop)});
-  top: 50%;
+  top: calc(${prop => calcX(prop)});
   display: flex;
   flex-direction: column;
   align-items: center;
