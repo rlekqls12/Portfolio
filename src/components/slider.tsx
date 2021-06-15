@@ -3,6 +3,8 @@ import {
   SliderWrap,
   SliderControlWrap,
   SliderControlButton,
+  SliderIndicatorWrap,
+  SliderIndicatorDot,
   SliderCard
 } from './sliderStyle';
 
@@ -119,6 +121,21 @@ function Slider(props: Props) {
     return tempList;
   }, [cardInfoList, showCardCount, realCardIndex, render, cardStyle]);
 
+  const sliderIndicatorDots = useMemo(() => {
+    const length = cardInfoList.length;
+    let nowIndex = realCardIndex % length;
+    if (nowIndex < 0) nowIndex += length;
+    return Array.from({ length: length }, (_, i) => (
+      <SliderIndicatorDot
+        key={i}
+        focus={i === nowIndex}
+        onClick={() => {
+          if (nowIndex !== i) setCardIndex(i);
+        }}
+      />
+    ));
+  }, [cardInfoList, realCardIndex, setCardIndex]);
+
   const onSwipe = useCallback(
     (event: React.TouchEvent<HTMLDivElement>) => {
       const swipeX = event.changedTouches[0].pageX;
@@ -180,6 +197,7 @@ function Slider(props: Props) {
           &gt;&gt;
         </SliderControlButton>
       </SliderControlWrap>
+      <SliderIndicatorWrap>{sliderIndicatorDots}</SliderIndicatorWrap>
     </SliderWrap>
   );
 }

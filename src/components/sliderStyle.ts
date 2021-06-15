@@ -38,6 +38,25 @@ export const SliderControlButton = styled.button`
   }
 `;
 
+export const SliderIndicatorWrap = styled.div`
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 100;
+`;
+
+export const SliderIndicatorDot = styled.div<any>`
+  width: 1vh;
+  height: 1vh;
+  margin: 0 5px;
+  border-radius: 100%;
+  background-color: ${(props: any) =>
+    props.focus ? 'rgba(247, 50, 50, 0.75)' : 'rgba(89, 25, 25, 0.75)'};
+`;
+
 function calcX(prop: SliderCardType) {
   const { index, dist, distX } = prop;
   return `calc( ${50 + distX * index}% + ${(dist / 4) * index}vw)`;

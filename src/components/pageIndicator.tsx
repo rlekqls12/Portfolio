@@ -66,14 +66,14 @@ PageIndicator.defaultProps = {
     height: '6vh',
     cursor: 'pointer',
     margin: '0.1px 0',
-    backgroundColor: 'rgb(125, 35, 35)',
+    backgroundColor: 'rgba(89, 25, 25, 0.75)',
     transition: 'all 0.3s ease-in-out'
   },
   pointerFocusStyle: {
     width: '0.4vw',
     height: '6vh',
     margin: '0.1px 0',
-    backgroundColor: 'rgba(255, 73, 73, 1)',
+    backgroundColor: 'rgba(247, 50, 50, 0.75)',
     transition: 'all 0.3s ease-in-out'
   },
   onFocusChnage: (index: number) => undefined

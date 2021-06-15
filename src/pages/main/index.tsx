@@ -30,14 +30,7 @@ function MainPage() {
     return (
       <>
         <img src={'./images/icon/' + imageList[index]} alt={'icon'} />
-        <p
-          style={{
-            position: 'absolute',
-            top: `${4 - Math.abs(cardIndex)}vh`
-          }}
-        >
-          {value.text}
-        </p>
+        <p>{value.text}</p>
       </>
     );
   }, []);
