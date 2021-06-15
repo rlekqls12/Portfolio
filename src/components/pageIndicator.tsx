@@ -62,21 +62,17 @@ PageIndicator.defaultProps = {
     zIndex: 101
   },
   pointerStyle: {
-    width: 10,
-    height: 10,
+    width: '0.4vw',
+    height: '6vh',
     cursor: 'pointer',
-    border: '0.5px solid rgba(255, 73, 73, 1)',
-    borderRadius: 30,
-    margin: '10px 0',
-    backgroundColor: 'rgba(255, 73, 73, 0.5)',
+    margin: '0.1px 0',
+    backgroundColor: 'rgb(125, 35, 35)',
     transition: 'all 0.3s ease-in-out'
   },
   pointerFocusStyle: {
-    width: 15,
-    height: 15,
-    border: '0.5px solid rgba(255, 73, 73, 0.5)',
-    borderRadius: 30,
-    margin: '10px 0',
+    width: '0.4vw',
+    height: '6vh',
+    margin: '0.1px 0',
     backgroundColor: 'rgba(255, 73, 73, 1)',
     transition: 'all 0.3s ease-in-out'
   },
