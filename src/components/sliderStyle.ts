@@ -18,6 +18,7 @@ export const SliderControlWrap = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  pointer-events: none;
   transform: translateX(-50%) translateY(-50%);
   z-index: 100;
 `;
@@ -26,6 +27,7 @@ export const SliderControlButton = styled.button`
   width: 4.2vw;
   height: 4.2vw;
   margin: 3vw;
+  pointer-events: all;
   font-size: 1.5vw;
   border: 1px solid rgba(200, 215, 235, 0.7);
   border-radius: 100%;
@@ -44,6 +46,7 @@ export const SliderIndicatorWrap = styled.div`
   left: 50%;
   display: flex;
   align-items: center;
+  pointer-events: none;
   transform: translateX(-50%) translateY(-50%);
   z-index: 100;
 `;
@@ -52,6 +55,7 @@ export const SliderIndicatorDot = styled.div<any>`
   width: 1vh;
   height: 1vh;
   margin: 0 5px;
+  pointer-events: all;
   border-radius: 100%;
   background-color: ${(props: any) =>
     props.focus ? 'rgba(247, 50, 50, 0.75)' : 'rgba(89, 25, 25, 0.75)'};
